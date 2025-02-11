@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 import git
 
@@ -17,7 +19,7 @@ with DAG(
     @task(task_id="git-pull")
     def refresh_dags():
         dags_dir = Path(__file__).parent
-        print(f"Pulling {dags_dir}...")
+        logger.info(f"Pulling {dags_dir}...")
         g = git.cmd.Git(dags_dir)
         g.pull()
     
