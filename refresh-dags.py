@@ -14,8 +14,7 @@ with DAG(
     catchup=False,
     tags=["airflow"],
 ) as dag:
-
-    @task(task_id="refresh_dags")
+    @task(task_id="git-pull")
     def refresh_dags():
         dags_dir = Path(__file__).parent
         print(f"Pulling {dags_dir}...")
