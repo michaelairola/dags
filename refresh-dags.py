@@ -9,7 +9,7 @@ from airflow.decorators import task
 with DAG(
     "refresh-dags",
     description="Refresh the DAGS to be up to date",
-    schedule=timedelta(days=1),
+    schedule=timedelta(minutes=5),
     start_date=datetime(2025, 2, 11),
     catchup=False,
     tags=["airflow"],
