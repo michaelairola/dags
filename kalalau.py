@@ -1,13 +1,14 @@
 # import os 
 # import time
 # from tempfile import NamedTemporaryFile
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.models.dag import DAG
 from airflow.decorators import task
 
 kalalau = DAG(
      dag_id="kalalau",
      start_date=datetime(2025, 2, 26),
+     schedule_interval=timedelta(days=1, hours=2, minutes=55),
      schedule="@daily",
 )
 
@@ -131,4 +132,3 @@ hello = echo_hello()
 stop = stop_ec2_instance()
 
 start >> hello >> stop
-# start >> hello 
