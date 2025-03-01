@@ -9,7 +9,6 @@ kalalau = DAG(
      dag_id="kalalau",
      start_date=datetime(2025, 2, 26),
      schedule_interval=timedelta(days=1, hours=2, minutes=55),
-     schedule="@daily",
 )
 
 @task.virtualenv(
