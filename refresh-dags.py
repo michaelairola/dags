@@ -13,6 +13,7 @@ with DAG(
     description="Refresh the DAGS to be up to date",
     start_date=datetime(2025, 2, 11),
     catchup=False,
+    schedule_interval=None,
     tags=["airflow"],
 ) as dag:
     @task(task_id="git-pull")
