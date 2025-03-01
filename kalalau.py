@@ -12,11 +12,11 @@ kalalau = DAG(
     catchup=False,
 )
 
-@task.virtualenv(
+@task(#.virtualenv(
     task_id="start_ec2_instance",
-    requirements=["boto3==1.37.0", "apache-airflow"],
     dag=kalalau,
-    system_site_packages=True,
+    # requirements=["boto3==1.37.0", "apache-airflow"],
+    # system_site_packages=True,
 )
 def start_ec2_instance():
     import time
@@ -45,11 +45,11 @@ def start_ec2_instance():
             return start(retries)
     return start()
 
-@task.virtualenv(
+@task(#.virtualenv(
     task_id="echo_hello",
-    requirements=["boto3==1.37.0", "paramiko", "apache-airflow"],
     dag=kalalau,
-    system_site_packages=True,
+    # requirements=["boto3==1.37.0", "paramiko", "apache-airflow"],
+    # system_site_packages=True,
 )
 def echo_hello():
     import time
@@ -105,11 +105,11 @@ def echo_hello():
     return True
 
 
-@task.virtualenv(
+@task(#.virtualenv(
     task_id="stop_ec2_instance",
-    requirements=["boto3==1.37.0", "apache-airflow"],
     dag=kalalau,
-    system_site_packages=True,
+    # requirements=["boto3==1.37.0", "apache-airflow"],
+    # system_site_packages=True,
     trigger_rule="all_done",
 )
 def stop_ec2_instance():
