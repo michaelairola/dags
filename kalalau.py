@@ -6,9 +6,10 @@ from airflow.models.dag import DAG
 from airflow.decorators import task
 
 kalalau = DAG(
-     dag_id="kalalau",
-     start_date=datetime(2025, 2, 26),
-     schedule_interval=timedelta(days=1, hours=2, minutes=55),
+    dag_id="kalalau",
+    start_date=datetime(2025, 2, 26),
+    schedule_interval="55 2 * * *",
+    catchup=False,
 )
 
 @task.virtualenv(
