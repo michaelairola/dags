@@ -12,15 +12,11 @@ kalalau = DAG(
     catchup=False,
 )
 
-# @task.virtualenv(
-#     task_id="start_ec2_instance",
-#     requirements=["boto3==1.37.0", "apache-airflow"],
-#     dag=kalalau,
-#     system_site_packages=True,
-# )
-@task(
+@task.virtualenv(
     task_id="start_ec2_instance",
+    requirements=["boto3==1.37.0", "apache-airflow"],
     dag=kalalau,
+    system_site_packages=True,
 )
 def start_ec2_instance():
     import time
