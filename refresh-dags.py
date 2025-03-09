@@ -9,7 +9,6 @@ with DAG(
     start_date=datetime(2025, 2, 11),
     catchup=False,
     schedule_interval=None,
-    tags=["airflow"],
 ) as dag:
     @task.virtualenv(
         task_id="git-pull",
@@ -20,17 +19,21 @@ with DAG(
         from pathlib import Path
         import logging
         import os
+        from git import Repo
+
         logger = logging.getLogger(__name__)
 
-        import git
-
         AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "~/airflow")
+        remote = "origin"
+        branch = "main"
 
         dags_dir = Path(AIRFLOW_HOME) / "dags"
-        logger.info(f"Pulling {dags_dir}...")
-        g = git.cmd.Git(dags_dir)
-        return g.pull()
-    
+        repo = Repo(dags_dir)
+        
+        logger.info(f"Pulling {repo}...")
+        repo.remotes[remote].pull(branch)
+        print(f"Successfully pulled changes from {remote}/{branch}")
+
     r = refresh_dags()
 
     r
