@@ -88,17 +88,16 @@ for dag in config.dags:
         start_date = dag.start_date,
         schedule=dag.schedule,
     ):
-        tasks = []
+        tasks = None
         for task in dag.tasks:
-            tasks.append(
-                airflow_task.virtualenv(
-                    run_file,
-                    task_id=task.id,
-                    requirements=task.requirements,
-                    params={"file_path":str(task.file_path)},
-                    # system_site_packages=True
-                )()
-            )
+            t = airflow_task.virtualenv(
+                run_file,
+                task_id=task.id,
+                requirements=task.requirements,
+                params={"file_path":str(task.file_path)},
+                system_site_packages=True
+            )()
+            tasks = tasks >> t if tasks else t
         tasks
 
 

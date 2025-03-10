@@ -1,8 +1,7 @@
-import time
-import boto3
-from airflow.models import Variable
-
 def start(retries=0):
+    import time
+    import boto3
+    from airflow.models import Variable
     interval = 5
     try:
         retries += 1

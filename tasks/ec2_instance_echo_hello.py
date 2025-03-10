@@ -1,4 +1,5 @@
 import time
+import sys
 from tempfile import NamedTemporaryFile
 
 import boto3
@@ -44,7 +45,7 @@ while retries <= 3:
 
 if not is_connected:
     print("Failed to connect to the EC2 instance :(")
-    return False
+    sys.exit(1)
 
 _, stdout, _ = ssh.exec_command("echo 'Hello World!'")
 print(stdout.read())
