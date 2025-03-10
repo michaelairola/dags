@@ -1,0 +1,35 @@
+dags:
+- id: hello_world
+  description: Echo's an env var
+  start_date: 2025-03-09
+  tasks:
+    - id: hello_world
+      description: echos an env var
+      requirements: []
+      file_path: hello_world.py
+- id: refresh_dags
+  description: Refreshes the dags to be up to date with github
+  start_date: 2025-02-11
+  tasks:
+    - id: git_pull
+      description: pulls latest from github
+      requirements: ["GitPython"]
+      file_path: "git_pull.py"
+- id: kalalau
+  description: kalalau
+  start_date: 2025-02-26
+  schedule: "55 2 * * *"
+  tasks:
+    - id: ec2_instance_start
+      description: starts the ec2 instance on aws us-west-2
+      requirements: ["boto3==1.37.0", "apache-airflow"]
+      file_path: "ec2_instance_start.py"
+    - id: ec2_instance_echo_hello
+      description: echo hello
+      requirements: ["boto3==1.37.0", "paramiko", "apache-airflow"]
+      file_path: ec2_instance_echo_hello.py
+    - id: ec2_isntance_stop
+      description: stops the ec2 instance on aws us-west-2
+      requirements: ["boto3==1.37.0", "apache-airflow"]
+      file_path: ec2_instance_stop.py
+      trigger_rule: "all_done"
